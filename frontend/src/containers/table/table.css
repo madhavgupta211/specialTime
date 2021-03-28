@@ -1,0 +1,11 @@
+.border-select:hover {
+  -webkit-filter: drop-shadow(2px 2px 0 #0042ad)
+                drop-shadow(-2px 2px 0 #0042ad)
+                drop-shadow(2px -2px 0 #0042ad)
+                drop-shadow(-2px -2px 0 #0042ad);
+
+  filter: drop-shadow(2px 2px 0 #0042ad)
+        drop-shadow(-2px 2px 0 #0042ad)
+        drop-shadow(2px -2px 0 #0042ad)
+        drop-shadow(-2px -2px 0 #0042ad);
+}

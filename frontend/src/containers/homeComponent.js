@@ -10,11 +10,17 @@ class Home extends Component {
     }
   }
   
+  toggleDay = () => {
+    this.setState({
+      day: !this.state.day
+    });
+  }
+
   render() {
     return(
       <Wall day = {this.state.day}>
         <div className = "row">
-          <Table />
+          <Table toggleDay = {this.toggleDay}/>
         </div>
       </Wall>
     );
