@@ -20,7 +20,7 @@ class Home extends Component {
     return(
       <Wall day = {this.state.day}>
         <div className = "row">
-          <Table toggleDay = {this.toggleDay}/>
+          <Table day = {this.state.day} toggleDay = {this.toggleDay}/>
         </div>
       </Wall>
     );
