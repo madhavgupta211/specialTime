@@ -12,6 +12,8 @@ import notepad from '../../assets/elements/notepad.png';
 import photo from '../../assets/elements/photo.png';
 import { Tooltip } from 'shards-react';
 import './table.css';
+import music from '../../assets/music.mp3';
+import tune from '../../assets/elements/tune.gif';
 
 const importAll = require =>
   require.keys().reduce((acc, next) => {
@@ -121,6 +123,15 @@ const Radio = styled.img`
   cursor: pointer;
 ` 
 
+const Tune = styled.img`
+  position: fixed;
+  width: 100px;
+  left: ${ props => props.width >= 865 ? 50 : 34 }%;
+  bottom: ${ props => props.width >= 1190 ? '17vh' : '115px' };
+  transform: translateX(-50%);
+  z-index: 5;
+` 
+
 const ImageContainer = styled.div`
   position: fixed;
   min-width: 550px;
@@ -149,7 +160,8 @@ class Table extends Component {
       gallery: this.props.day ? dayImages : nightImages,
       imageNo: 0,
       table: true,
-      openRing: false
+      openRing: false,
+      isPlaying: false
     }
   }
 
@@ -233,13 +245,38 @@ class Table extends Component {
     });
   }
 
+  toggleMusic = () => {
+    console.log("toggle");
+    this.setState({
+      isPlaying: !this.state.isPlaying
+    });
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    console.log(this.state);
+    if(this.state.isPlaying !== prevState.isPlaying) {
+      if(this.state.isPlaying) {
+        this.player.play();
+        console.log("play");
+        this.player.loop = true;
+      }
+      else {
+        this.player.pause();
+        console.log("pause");
+      }
+    }
+  }
+
+
   render() {
     console.log(Object.keys(this.state.gallery));
     return(
       <div>
         <Roof src = {roof} />
-        <Tableau src = {this.state.table ? table : notable}  width = {this.state.width} onClick = { this.nextImage } />
-        <Radio className = "border-select" src = {radio} width = {this.state.width} />
+        <div>
+          <Radio className = "border-select" src = {radio} width = {this.state.width} onClick = { this.toggleMusic }/>
+          <Tune src = {tune} hidden = {!this.state.isPlaying} />
+        </div>
         <Panel className = "border-select" src = {panel} width = {this.state.width} />
         <Ring id="ring" className = "border-select" src = {ring} />
         <Tooltip
@@ -253,9 +290,11 @@ class Table extends Component {
         <Clock onClick = {this.clockClick} className = "border-select" src = {clock} width = {this.state.width}/>
         <NotePad className = "border-select" src = {notepad} width = {this.state.width} />
         <Photo className = "border-select" src = {photo} width = {this.state.width} onClick = {this.toggleframe} />
+        <Tableau src = {this.state.table ? table : notable}  width = {this.state.width} onClick = { this.nextImage } />
         <ImageContainer width = {this.state.width}>
           <Image src = {this.state.gallery[`${this.state.imageNo}.jpg`].default}/>
         </ImageContainer>
+        <audio src = {music} ref = {ref => (this.player = ref)} />
       </div>
     );
   }
