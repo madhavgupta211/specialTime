@@ -161,6 +161,8 @@ class Table extends Component {
       imageNo: 0,
       table: true,
       openRing: false,
+      openPost: false,
+      openNote: false,
       isPlaying: false
     }
   }
@@ -245,6 +247,18 @@ class Table extends Component {
     });
   }
 
+  togglePost = () => {
+    this.setState({
+      openPost: !this.state.openPost
+    });
+  }
+
+  toggleNote = () => {
+    this.setState({
+      openNote: !this.state.openNote
+    });
+  }
+
   toggleMusic = () => {
     console.log("toggle");
     this.setState({
@@ -286,9 +300,23 @@ class Table extends Component {
         >
           The souvenir i can never forget
         </Tooltip>
-        <PostIt hidden = {!this.state.table} className = "border-select" src = {postit} width = {this.state.width}/>
+        <PostIt id = "postit" hidden = {!this.state.table} className = "border-select" src = {postit} width = {this.state.width}/>
+        <Tooltip
+          open={this.state.openPost}
+          target="#postit"
+          toggle={this.togglePost}
+        >
+          Recieved 19th February 2020 with a violet flower
+        </Tooltip>
         <Clock onClick = {this.clockClick} className = "border-select" src = {clock} width = {this.state.width}/>
-        <NotePad className = "border-select" src = {notepad} width = {this.state.width} />
+        <NotePad id = "notepad" className = "border-select" src = {notepad} width = {this.state.width} />
+        <Tooltip
+          open={this.state.openNote}
+          target="#notepad"
+          toggle={this.toggleNote}
+        >
+          I have never seen a heart purer than yours....<br></br>.....don't change yourself till the end of my life
+        </Tooltip>
         <Photo className = "border-select" src = {photo} width = {this.state.width} onClick = {this.toggleframe} />
         <Tableau src = {this.state.table ? table : notable}  width = {this.state.width} onClick = { this.nextImage } />
         <ImageContainer width = {this.state.width}>
