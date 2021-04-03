@@ -1,4 +1,5 @@
 {
+  "homepage": "http://madhavgupta211.github.io/specialTime/frontend",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -7,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4.6.0",
+    "gh-pages": "^3.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -21,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build"
   },
   "eslintConfig": {
     "extends": [
